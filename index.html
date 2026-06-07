@@ -4,15 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dearest, Eric.</title>
-    
-    <!-- Link Font Google -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Outfit:wght@100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            /* Tema Baru: Purple-Blue Theme */
             --theme-bg: #f0f3ff;
             --theme-primary: #b4c6ff;
             --theme-dark: #5c6bc0;
@@ -77,7 +74,6 @@
             transform: translateY(-2px);
         }
 
-        /* SCREEN 1: WELCOME */
         #welcome-screen h1 {
             font-size: 2.5rem;
             color: var(--theme-dark);
@@ -86,7 +82,6 @@
             font-style: italic;
         }
 
-        /* SCREEN 2: GAME */
         #game-screen {
             background: linear-gradient(to bottom, #f3f0ff, #ffffff);
             cursor: crosshair;
@@ -125,7 +120,6 @@
             100% { transform: translateY(-10vh) scale(0.8); opacity: 0; }
         }
 
-        /* MODAL / POPUPS */
         .modal {
             background: white;
             padding: 30px;
@@ -141,7 +135,6 @@
             font-family: 'Playfair Display', serif;
         }
 
-        /* SCREEN 4: LOADING */
         .progress-container {
             width: 250px;
             background-color: #ddd;
@@ -157,7 +150,6 @@
             transition: width 0.1s linear;
         }
 
-        /* SCREEN 5: DASHBOARD DECORATIONS */
         .notification-banner {
             background: white;
             padding: 10px 25px;
@@ -211,7 +203,6 @@
             align-items: center;
         }
 
-        /* POLAROID STYLES */
         .polaroid {
             background: white;
             padding: 15px 15px 35px 15px;
@@ -238,7 +229,6 @@
             z-index: 5;
         }
 
-        /* ENVELOPE STYLES */
         .envelope-container {
             display: flex;
             flex-direction: column;
@@ -251,7 +241,7 @@
             height: auto;
             transition: transform 0.3s ease;
         }
-        /* Amplop kedua dikonversi warnanya menjadi Biru Aesthetic menggunakan filter hue-rotate */
+
         .blue-envelope {
             filter: hue-rotate(210deg) saturate(0.9) brightness(1.05);
         }
@@ -265,7 +255,6 @@
             transform: scale(1.1) rotate(4deg);
         }
 
-        /* FINAL LETTER OVERLAY */
         .letter-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -330,7 +319,6 @@
             transform: none;
         }
 
-        /* SPOTIFY CONTAINER STYLES (SQUARE & NO BORDER) */
         .spotify-container {
             display: flex;
             flex-direction: column;
@@ -343,10 +331,10 @@
         .spotify-icon-img {
             width: 75px;
             height: 75px;
-            border-radius: 12px; /* Membuat bentuk kotak presisi dengan sudut halus (Soft Square) */
+            border-radius: 12px; 
             object-fit: cover;
-            border: none; /* Menghilangkan border */
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Memberikan bayangan tipis yang lembut */
+            border: none; 
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         .spotify-container:hover .spotify-icon-img {
@@ -361,20 +349,16 @@
     </style>
 </head>
 <body>
-
-    <!-- Background Music -->
     <audio id="bg-music" loop>
         <source src="Always.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- 1. WELCOME SCREEN -->
     <div id="welcome-screen" class="screen">
         <h1>Hi, Eric!</h1>
         <p>This website is specially made for you, enjoy.</p>
         <button id="start-btn">Click Here! :D</button>
     </div>
 
-    <!-- 2. GAME SCREEN -->
     <div id="game-screen" class="screen hidden">
         <div class="counter-box">
              Collected Hearts: <span id="heart-count">0</span> / 19
@@ -382,7 +366,6 @@
         <div class="game-instruction">TAP TO SHOOT THE HEART!</div>
     </div>
 
-    <!-- 3. SUCCESS POPUP SCREEN -->
     <div id="success-screen" class="screen hidden">
         <div class="modal">
             <h2>Congrats!</h2>
@@ -391,7 +374,6 @@
         </div>
     </div>
 
-    <!-- 4. LOADING SCREEN -->
     <div id="loading-screen" class="screen hidden">
         <p id="loading-text">Collecting data...</p>
         <div class="progress-container">
@@ -399,16 +381,13 @@
         </div>
     </div>
 
-    <!-- 5. DASHBOARD SCREEN -->
     <div id="dashboard-screen" class="screen hidden">
-        
-        <!-- Notification Banner -->
+
         <div class="notification-banner">
             <strong>New notification from Ethin</strong>
             <p>hope you like it!</p>
         </div>
 
-        <!-- Decorative Card Box Container -->
         <div class="main-deco-box">
             <div class="corner-deco top-left"></div>
             <div class="corner-deco top-right"></div>
@@ -416,21 +395,17 @@
             <div class="corner-deco bottom-right"></div>
 
             <div class="dashboard-container">
-                <!-- Polaroid Frame -->
                 <div class="polaroid">
                     <img src="Erin.jpg" alt="Our Memory">
                     <div class="polaroid-caption">Happy Biiirthdaaay. :]</div>
                 </div>
                 
-                <!-- Side Column for Envelopes -->
                 <div class="letters-column">
-                    <!-- Envelope 1 (Default visible) -->
                     <div class="envelope-container" id="envelope-btn">
                         <img src="—Pngtree—pink envelope with heart sticker_6940225.png" alt="Envelope" class="envelope-img">
                         <p class="envelope-text">A letter for you.</p>
                     </div>
 
-                    <!-- Envelope 2 (Hidden by default, unlocked later - Blue Color) -->
                     <div class="envelope-container hidden" id="envelope-2-btn">
                         <img src="—Pngtree—pink envelope with heart sticker_6940225.png" alt="Envelope 2" class="envelope-img blue-envelope"> 
                         <p class="envelope-text" style="color: #5c6bc0;">One more...</p>
@@ -439,15 +414,12 @@
             </div>
         </div>
 
-        <!-- Spotify Link aligned cleanly beneath the box -->
         <a href="https://open.spotify.com/playlist/2MDboVTrrH8VHL5i4Mv4Hz?si=51062b75412c4ba6&pt=5b782a51f397263b47446c82170f68a9" target="_blank" class="spotify-container">
             <img src="cd playlist cover.jpg" alt="Playlist Cover" class="spotify-icon-img">
             <p style="font-size: 0.8rem; font-weight: bold; margin-top: 5px; color: var(--theme-dark);">Check out this playlist.</p>
         </a>
     </div>
 
-    <!-- 6. FINAL LETTER POPUPS -->
-    <!-- Modal Letter 1 -->
     <div id="letter-modal" class="letter-overlay hidden">
         <div class="letter-paper">
             <span class="close-letter" id="close-letter-btn">&times;</span>
@@ -466,7 +438,6 @@
         </div>
     </div>
 
-    <!-- Modal Letter 2 -->
     <div id="letter-modal-2" class="letter-overlay hidden">
         <div class="letter-paper">
             <span class="close-letter" id="close-letter-2-btn">&times;</span>
@@ -481,7 +452,6 @@
     </div>
 
     <script>
-        // DOM Elements
         const music = document.getElementById('bg-music');
         const welcomeScreen = document.getElementById('welcome-screen');
         const gameScreen = document.getElementById('game-screen');
@@ -505,10 +475,10 @@
         const loadBar = document.getElementById('load-bar');
 
         let heartsCollected = 0;
-        const totalHeartsNeeded = 1; // Dikembalikan ke nilai asli proyekmu
+        const totalHeartsNeeded = 19; 
         let gameInterval;
 
-        // Step 1: Click Start -> Play Music & Go to Game Screen
+
         startBtn.addEventListener('click', () => {
             music.play().catch(e => console.log("Audio play blocked."));
             welcomeScreen.classList.add('hidden');
@@ -516,9 +486,9 @@
             startGame();
         });
 
-        // Step 2: The Floating Hearts Game Logic
+
         function startGame() {
-            createHeart(); // Langsung keluarkan heart pertama saat mulai game tanpa jeda delay
+            createHeart(); 
 
             gameInterval = setInterval(() => {
                 if (heartsCollected < totalHeartsNeeded) {
@@ -526,7 +496,7 @@
                 } else {
                     clearInterval(gameInterval);
                 }
-            }, 400); // Kecepatan spawn stabil
+            }, 400); 
         }
 
         function createHeart() {
@@ -535,7 +505,7 @@
             heart.innerHTML = '&#9829';
             heart.style.left = Math.random() * 90 + 'vw';
             
-            const duration = 6 + Math.random() * 4; // Kecepatan gerak lambat dan santai
+            const duration = 6 + Math.random() * 4; 
             heart.style.animationDuration = duration + 's';
 
             heart.addEventListener('click', () => {
@@ -558,14 +528,12 @@
             }, duration * 1000);
         }
 
-        // Step 3: Click "Open Gift" -> Show Loading Screen
         openGiftBtn.addEventListener('click', () => {
             successScreen.classList.add('hidden');
             loadingScreen.classList.remove('hidden');
             startLoading();
         });
 
-        // Step 4: Loading Screen Progress Bar Simulation (Dengan Perubahan Kata Dinamis)
         function startLoading() {
             let width = 0;
             const loadingText = document.getElementById('loading-text');
@@ -581,7 +549,6 @@
                     width += 2;
                     loadBar.style.width = width + '%';
 
-                    // Mengubah kata-kata loading seiring berjalannya progress bar
                     if (width <= 30) {
                         loadingText.textContent = "Collecting data...";
                     } else if (width <= 60) {
@@ -595,7 +562,6 @@
             }, 50);
         }
 
-        // Step 5 & 6: Interactive Dashboard, Next Button, and Modals Logic
         envelopeBtn.addEventListener('click', () => {
             letterModal.classList.remove('hidden');
         });
@@ -604,17 +570,15 @@
             letterModal.classList.add('hidden');
         });
 
-        // Alur transisi klik "Next Letter"
         nextLetterBtn.addEventListener('click', () => {
-            letterModal.classList.add('hidden'); // Tutup Surat 1
-            envelope2Btn.classList.remove('hidden'); // Munculkan Icon Amplop Kedua "One more..."
+            letterModal.classList.add('hidden');
+            envelope2Btn.classList.remove('hidden'); 
             
             setTimeout(() => {
-                letterModal2.classList.remove('hidden'); // Otomatis langsung membukakan Surat 2
+                letterModal2.classList.remove('hidden'); 
             }, 300);
         });
 
-        // Kontrol Amplop Surat Kedua
         envelope2Btn.addEventListener('click', () => {
             letterModal2.classList.remove('hidden');
         });
@@ -623,7 +587,6 @@
             letterModal2.classList.add('hidden');
         });
 
-        // Tutup modal jika area luar diklik
         window.addEventListener('click', (e) => {
             if (e.target === letterModal) {
                 letterModal.classList.add('hidden');
