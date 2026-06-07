@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dearest, Eric.</title>
+    <style>
+        :root {
+            --pink-bg: #ffeef2;
+            --pink-primary: #ff8fa3;
+            --pink-dark: #ff4d6d;
+            --text-color: #5c3d48;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--pink-bg);
+            color: var(--text-color);
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .hidden {
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(0.95);
+        }
+
+        button {
+            background-color: var(--pink-primary);
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 143, 163, 0.4);
+            transition: transform 0.2s, background-color 0.2s;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: var(--pink-dark);
+            transform: translateY(-2px);
+        }
+
+        /* SCREEN 1: WELCOME */
+        #welcome-screen h1 {
+            font-size: 2.5rem;
+            color: var(--pink-dark);
+            margin-bottom: 10px;
+            font-family: 'Times New Roman', Times, serif;
+            font-style: italic;
+ 
+}
+
+        /* SCREEN 2: GAME */
+        #game-screen {
+            background: linear-gradient(to bottom, #e6f2ff, #ffffff);
+            cursor: crosshair;
+        }
+        .counter-box {
+            position: absolute;
+            top: 20px;
+            background: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            border: 2px solid var(--pink-primary);
+            font-weight: bold;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        .game-instruction {
+            position: absolute;
+            top: 60px;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            opacity: 0.7;
+        }
+        .floating-heart {
+            position: absolute;
+            font-size: 30px;
+            cursor: pointer;
+            user-select: none;
+            animation: floatUp 4s linear forwards;
+            transition: transform 0.1s ease;
+            color: #ff8fa3;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(105vh) scale(1); opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-10vh) scale(0.8); opacity: 0; }
+        }
+
+        /* MODAL / POPUPS */
+        .modal {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            border: 4px solid var(--pink-primary);
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .modal h2 {
+            color: var(--pink-dark);
+            margin-bottom: 15px;
+            font-family: 'Georgia', serif;
+        }
+
+        /* SCREEN 4: LOADING */
+        .progress-container {
+            width: 250px;
+            background-color: #ddd;
+            border-radius: 10px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        .progress-bar {
+            width: 0%;
+            height: 15px;
+            background-color: var(--pink-primary);
+            border-radius: 10px;
+            transition: width 0.1s linear;
+        }
+
+        /* SCREEN 5: DASHBOARD */
+        .dashboard-container {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            max-width: 600px;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px;
+        }
+
+        .polaroid img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            background-color: #ccc; /* Placeholder if image missing */
+        }
+        .polaroid-caption {
+            margin-top: 15px;
+            font-family: 'Georgia', serif;
+            font-weight: bold;
+            color: var(--pink-dark);
+        }
+
+
+.polaroid {
+    background: white;
+    padding: 15px 15px 35px 15px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    transform: rotate(-3deg);
+    border-radius: 4px;
+    
+    /* Smooth transition effect when the cursor slides in/out */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; 
+}
+
+/* This triggers when the cursor slides over the polaroid */
+.polaroid:hover {
+    transform: scale(1.1) rotate(0deg); /* Gets larger and straightens up */
+    box-shadow: 0 15px 30px rgba(0,0,0,0.2); /* Deeper shadow for a floating effect */
+    z-index: 5; /* Ensures it stays on top of other elements */
+}
+
+/* --- UPDATED ENVELOPE STYLES --- */
+.envelope-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    margin-top: 0px;
+}
+
+/* Style for your new PNG image instead of the emoji */
+.envelope-img {
+    width: 150px; /* Adjust the size of your envelope PNG here */
+    height: auto;
+    transition: transform 0.3s ease;
+}
+
+/* This triggers when the cursor slides over the envelope */
+.envelope-container:hover .envelope-img {
+    transform: scale(1.15) rotate(5deg); /* Envelope tilts and gets larger */
+}
+
+        /* FINAL LETTER OVERLAY */
+        .letter-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+        .letter-paper {
+            background: #fffdf9;
+            padding: 40px;
+            border-radius: 8px;
+            max-width: 450px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            border: 2px solid #f3e5d8;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            text-align: left;
+            line-height: 1.6;
+        }
+        .close-letter {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 20px;
+            cursor: pointer;
+            color: #aaa;
+        }
+        .close-letter:hover { color: var(--pink-dark); }
+        .letter-paper h3 {
+            text-align: center;
+            color: var(--pink-dark);
+            margin-bottom: 20px;
+            font-family: 'Georgia', serif;
+        }
+
+        /* --- SPOTIFY BUTTON STYLES --- */
+.spotify-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    text-decoration: none;
+    margin-top: 45px; /* Berikan sedikit jarak manis di bawah teks "A letter for you." */
+    transition: transform 0.3s ease;
+}
+
+.spotify-icon {
+    font-size: 45px;
+    color: #fa9eaf;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 8px 20px #ff8fa3(29, 185, 84, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.spotify-icon-img {
+    width: 85px;
+    height: 85px;
+    border-radius: 50%; /* Forces the image into a perfect circle */
+    object-fit: cover;  /* Prevents the image from stretching or distorting */
+    border: 2px solid #ff8fa3; /* Optional: Adds a cute Spotify green border around the photo */
+    box-shadow: 0 8px 20px #ff8fa3(29, 185, 84, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+/* Hover effect when cursor slides over it */
+.spotify-container:hover .spotify-icon-img {
+    transform: scale(1.15) rotate(-5deg);
+    box-shadow: 0 12px 25px #ff8fa3(29, 185, 84, 0.5);
+}
+    </style>
+</head>
+<body>
+
+    <!-- Background Music (Optional) -->
+    <!-- Replace URL with an actual audio file link if you want it to autoplay on click -->
+    <audio id="bg-music" loop>
+        <source src="Always.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- 1. WELCOME SCREEN (image.png) -->
+    <div id="welcome-screen" class="screen">
+        <h1>Hi, Eric!</h1>
+        <p>This website is specially made for you, enjoy.</p>
+        <button id="start-btn">Click Here! :D</button>
+    </div>
+
+    <!-- 2. GAME SCREEN (image_2.png) -->
+    <div id="game-screen" class="screen hidden">
+        <div class="counter-box">
+             Collected Hearts: <span id="heart-count">0</span> / 19
+        </div>
+        <div class="game-instruction">TAP TO SHOOT THE HEART!</div>
+    </div>
+
+    <!-- 3. SUCCESS POPUP SCREEN (image_3.png) -->
+    <div id="success-screen" class="screen hidden">
+        <div class="modal">
+            <h2>Congrats!</h2>
+            <p>19 Hearts Collected.</p>
+            <button id="open-gift-btn">Open Gift</button>
+        </div>
+    </div>
+
+    <!-- 4. LOADING SCREEN (image_4.png) -->
+    <div id="loading-screen" class="screen hidden">
+        <p>Collecting data...</p>
+        <div class="progress-container">
+            <div class="progress-bar" id="load-bar"></div>
+        </div>
+    </div>
+
+<div id="dashboard-screen" class="screen hidden">
+        <div class="dashboard-container">
+            
+            <div class="polaroid">
+                <img src="Erin.jpg" alt="Our Memory">
+                <div class="polaroid-caption">Happy Biiirthdaaay. :]</div>
+            </div>
+            
+            <div class="envelope-container" id="envelope-btn">
+                <img src="—Pngtree—pink envelope with heart sticker_6940225.png" alt="Envelope" class="envelope-img">
+                <p style="font-size: 0.8rem; font-weight: bold; margin-top: -20px; color: var(--pink-dark);">A letter for you.</p>
+            </div>
+
+    <a href="https://open.spotify.com/playlist/2MDboVTrrH8VHL5i4Mv4Hz?si=51062b75412c4ba6&pt=5b782a51f397263b47446c82170f68a9" target="_blank" class="spotify-container">
+        <img src="favpng_95de0ba61f49a579d4a08f380f49f442.png" alt="Playlist Cover" class="spotify-icon-img">
+        <p style="font-size: 0.8rem; font-weight: bold; margin-top: 5px; color: #ff4d6d;">Our Playlist.</p>
+    </a>
+
+        </div>
+    </div>
+
+    <!-- 6. FINAL LETTER POPUP (image_6.png) -->
+    <div id="letter-modal" class="letter-overlay hidden">
+        <div class="letter-paper">
+            <span class="close-letter" id="close-letter-btn">&times;</span>
+            <h3>Happy Birthday, Eric :)</h3>
+            <br>
+            <p>It’s been a while since we last met, and a lot of things have probably changed since then. However, you're still the best thing that ever happened to me, and I'm glad.
+</p>
+            <br>
+            <p>I just wanted to wish you well as you start this new chapter with college soon. I hope everything went great and that you could meet good people there and take care of yourself.
+</p>
+            <br>
+            <p>Even if we don’t really see each other like before, I still hope we can stay in touch sometimes, just know how each other is doing from time to time, you can talk to me whenever you feel like you want to, or if you ever feel lonely, just HMU.
+ </p>
+ <br>
+            <p>Once again, happy birthday. May this new chapter bring you endless blessings, happiness, and all the success you deserve.
+ </p>
+        </div>
+    </div>
+
+    <script>
+        // DOM Elements
+        const music = document.getElementById('bg-music');
+        const welcomeScreen = document.getElementById('welcome-screen');
+        const gameScreen = document.getElementById('game-screen');
+        const successScreen = document.getElementById('success-screen');
+        const loadingScreen = document.getElementById('loading-screen');
+        const dashboardScreen = document.getElementById('dashboard-screen');
+        const letterModal = document.getElementById('letter-modal');
+
+        const startBtn = document.getElementById('start-btn');
+        const openGiftBtn = document.getElementById('open-gift-btn');
+        const envelopeBtn = document.getElementById('envelope-btn');
+        const closeLetterBtn = document.getElementById('close-letter-btn');
+        
+        const heartCountSpan = document.getElementById('heart-count');
+        const loadBar = document.getElementById('load-bar');
+
+        let heartsCollected = 0;
+        const totalHeartsNeeded = 19;
+        let gameInterval;
+
+        // Step 1: Click Start -> Play Music & Go to Game Screen
+        startBtn.addEventListener('click', () => {
+            music.play().catch(e => console.log("Audio play blocked or needs direct link layout."));
+            welcomeScreen.classList.add('hidden');
+            gameScreen.classList.remove('hidden');
+            startGame();
+        });
+
+        // Step 2: The Floating Hearts Game Logic
+        function startGame() {
+            gameInterval = setInterval(() => {
+                if (heartsCollected < totalHeartsNeeded) {
+                    createHeart();
+                } else {
+                    clearInterval(gameInterval);
+                }
+            }, 400); // Spawns a heart every 800ms
+        }
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('floating-heart');
+            heart.innerHTML = '&#9829';
+            heart.style.left = Math.random() * 90 + 'vw'; // Random horizontal position
+            
+            // Randomize speed slightly
+            const duration = 6 + Math.random() * 4;
+            heart.style.animationDuration = duration + 's';
+
+            // Tap/Click event to collect
+            heart.addEventListener('click', () => {
+                heartsCollected++;
+                heartCountSpan.textContent = heartsCollected;
+                heart.remove(); // Remove heart immediately on tap
+
+                if (heartsCollected >= totalHeartsNeeded) {
+                    setTimeout(() => {
+                        gameScreen.classList.add('hidden');
+                        successScreen.classList.remove('hidden');
+                    }, 500);
+                }
+            });
+
+            gameScreen.appendChild(heart);
+
+            // Clean up old hearts that floated away without being clicked
+            setTimeout(() => {
+                heart.remove();
+            }, duration * 1000);
+        }
+
+        // Step 3: Click "Buka Hadiah" -> Show Loading Screen
+        openGiftBtn.addEventListener('click', () => {
+            successScreen.classList.add('hidden');
+            loadingScreen.classList.remove('hidden');
+            startLoading();
+        });
+
+        // Step 4: Loading Screen Progress Bar Simulation
+        function startLoading() {
+            let width = 0;
+            const interval = setInterval(() => {
+                if (width >= 100) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        loadingScreen.classList.add('hidden');
+                        dashboardScreen.classList.remove('hidden');
+                    }, 400);
+                } else {
+                    width += 2;
+                    loadBar.style.width = width + '%';
+                }
+            }, 50); // Updates progress smoothly over 2.5 seconds
+        }
+
+        // Step 5 & 6: Interactive Dashboard and Modal Letter Toggle
+        envelopeBtn.addEventListener('click', () => {
+            letterModal.classList.remove('hidden');
+        });
+
+        closeLetterBtn.addEventListener('click', () => {
+            letterModal.classList.add('hidden');
+        });
+
+        // Close letter if user clicks anywhere outside the letter paper paper box
+        window.addEventListener('click', (e) => {
+            if (e.target === letterModal) {
+                letterModal.classList.add('hidden');
+            }
+        });
+    </script>
+</body>
+</html>
