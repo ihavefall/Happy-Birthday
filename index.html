@@ -27,8 +27,9 @@
         body {
             background-color: var(--theme-bg);
             color: var(--text-color);
-            overflow: hidden;
-            height: 100vh;
+            overflow-x: hidden;
+            overflow-y: auto;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -47,12 +48,22 @@
             transition: opacity 0.5s ease, transform 0.5s ease;
             padding: 20px;
             text-align: center;
+            box-sizing: border-box;
+        }
+
+        #dashboard-screen {
+            position: relative;
+            height: auto;
+            min-height: 100vh;
+            justify-content: flex-start;
+            padding: 40px 20px;
         }
 
         .hidden {
             opacity: 0;
             pointer-events: none;
             transform: scale(0.95);
+            position: fixed; 
         }
 
         button {
@@ -85,7 +96,10 @@
         #game-screen {
             background: linear-gradient(to bottom, #f3f0ff, #ffffff);
             cursor: crosshair;
+            position: fixed;
+            overflow: hidden;
         }
+        
         .counter-box {
             position: absolute;
             top: 20px;
@@ -96,14 +110,18 @@
             font-weight: bold;
             font-size: 0.9rem;
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            z-index: 2;
         }
+        
         .game-instruction {
             position: absolute;
-            top: 60px;
+            top: 70px;
             font-size: 0.8rem;
             letter-spacing: 1px;
             opacity: 0.7;
+            z-index: 2;
         }
+        
         .floating-heart {
             position: absolute;
             font-size: 30px;
@@ -129,6 +147,7 @@
             width: 90%;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
+        
         .modal h2 {
             color: var(--theme-dark);
             margin-bottom: 15px;
@@ -142,6 +161,7 @@
             margin: 20px 0;
             overflow: hidden;
         }
+        
         .progress-bar {
             width: 0%;
             height: 15px;
@@ -157,10 +177,13 @@
             box-shadow: 0 4px 15px rgba(180, 198, 255, 0.15);
             border: 1px solid rgba(180, 198, 255, 0.3);
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             font-size: 0.85rem;
             animation: slideDown 0.5s ease;
+            width: 100%;
+            max-width: 400px;
         }
+        
         .notification-banner strong {
             color: var(--theme-dark);
             display: block;
@@ -169,31 +192,22 @@
         .main-deco-box {
             background: rgba(255, 255, 255, 0.6);
             backdrop-filter: blur(8px);
-            padding: 35px 45px;
+            padding: 35px 25px;
             border-radius: 24px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
             position: relative;
             max-width: 650px;
-            width: 92%;
-            margin-bottom: 15px;
+            width: 100%;
+            margin-bottom: 25px;
         }
-        .corner-deco {
-            position: absolute;
-            font-size: 1.2rem;
-            opacity: 0.6;
-        }
-        .top-left { top: 15px; left: 15px; }
-        .top-right { top: 15px; right: 15px; }
-        .bottom-left { bottom: 15px; left: 15px; }
-        .bottom-right { bottom: 15px; right: 15px; }
 
         .dashboard-container {
             display: flex;
             flex-direction: row;
             align-items: center;
             justify-content: center;
-            gap: 45px;
-            flex-wrap: wrap;
+            gap: 35px;
+            flex-wrap: wrap; 
         }
 
         .letters-column {
@@ -201,6 +215,7 @@
             flex-direction: column;
             gap: 20px;
             align-items: center;
+            min-width: 150px;
         }
 
         .polaroid {
@@ -210,19 +225,26 @@
             transform: rotate(-3deg);
             border-radius: 4px;
             transition: transform 0.3s ease, box-shadow 0.3s ease; 
+            width: 100%;
+            max-width: 230px;
         }
+        
         .polaroid img {
-            width: 200px;
-            height: 200px;
+            width: 100%;
+            height: auto;
+            aspect-ratio: 1/1;
             object-fit: cover;
             background-color: #ccc;
         }
+        
         .polaroid-caption {
             margin-top: 15px;
             font-family: 'Playfair Display', serif;
             font-weight: bold;
             color: var(--theme-dark);
+            font-size: 0.95rem;
         }
+        
         .polaroid:hover {
             transform: scale(1.06) rotate(0deg);
             box-shadow: 0 15px 30px rgba(0,0,0,0.12);
@@ -236,8 +258,9 @@
             cursor: pointer;
             transition: transform 0.3s ease;
         }
+        
         .envelope-img {
-            width: 140px;
+            width: 120px;
             height: auto;
             transition: transform 0.3s ease;
         }
@@ -245,12 +268,14 @@
         .blue-envelope {
             filter: hue-rotate(210deg) saturate(0.9) brightness(1.05);
         }
+        
         .envelope-text {
             font-size: 0.8rem;
             font-weight: bold;
             margin-top: 5px;
             color: var(--theme-dark);
         }
+        
         .envelope-container:hover .envelope-img {
             transform: scale(1.1) rotate(4deg);
         }
@@ -263,14 +288,16 @@
             justify-content: center;
             align-items: center;
             z-index: 10;
+            padding: 20px;
         }
+        
         .letter-paper {
             background: #fffdfa;
-            padding: 40px;
+            padding: 30px 25px;
             border-radius: 12px;
             max-width: 450px;
-            width: 90%;
-            max-height: 80vh;
+            width: 100%;
+            max-height: 85vh;
             overflow-y: auto;
             position: relative;
             border: 1px solid #e2e8f0;
@@ -278,25 +305,31 @@
             text-align: left;
             line-height: 1.6;
         }
+        
         .letter-paper p {
             font-family: 'Lora', serif;
-            font-size: 1.02rem;
+            font-size: 0.95rem;
             color: #4a4f6e;
         }
+        
         .close-letter {
             position: absolute;
             top: 15px;
             right: 15px;
-            font-size: 20px;
+            font-size: 24px;
             cursor: pointer;
             color: #aaa;
+            line-height: 1;
         }
+        
         .close-letter:hover { color: var(--theme-dark); }
+        
         .letter-paper h3 {
             text-align: center;
             color: var(--theme-dark);
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             font-family: 'Playfair Display', serif;
+            padding-right: 20px;
         }
 
         .next-btn {
@@ -313,6 +346,7 @@
             box-shadow: none;
             transition: all 0.3s ease;
         }
+        
         .next-btn:hover {
             background: var(--theme-primary);
             color: white;
@@ -327,16 +361,19 @@
             text-decoration: none;
             margin-top: 5px;
             transition: transform 0.3s ease;
+            width: fit-content;
         }
+        
         .spotify-icon-img {
-            width: 75px;
-            height: 75px;
+            width: 70px;
+            height: 70px;
             border-radius: 12px; 
             object-fit: cover;
             border: none; 
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
+        
         .spotify-container:hover .spotify-icon-img {
             transform: scale(1.1) rotate(-5deg);
             box-shadow: 0 8px 20px rgba(92, 107, 192, 0.25);
@@ -345,6 +382,33 @@
         @keyframes slideDown {
             0% { transform: translateY(-15px); opacity: 0; }
             100% { transform: translateY(0); opacity: 1; }
+        }
+
+        /* --- MEDIA QUERIES UNTUK HP (RESPONSIF) --- */
+        @media (max-width: 600px) {
+            body {
+                align-items: flex-start; /* Supaya saat scroll tidak kepotong di atas */
+            }
+            #welcome-screen h1 {
+                font-size: 2rem;
+            }
+            .main-deco-box {
+                padding: 25px 15px;
+            }
+            .dashboard-container {
+                gap: 25px;
+                flex-direction: column;
+            }
+            .polaroid {
+                transform: rotate(0deg); 
+                max-width: 200px;
+            }
+            .polaroid:hover {
+                transform: scale(1.05);
+            }
+            .letter-paper {
+                padding: 25px 20px;
+            }
         }
     </style>
 </head>
@@ -389,11 +453,6 @@
         </div>
 
         <div class="main-deco-box">
-            <div class="corner-deco top-left"></div>
-            <div class="corner-deco top-right"></div>
-            <div class="corner-deco bottom-left"></div>
-            <div class="corner-deco bottom-right"></div>
-
             <div class="dashboard-container">
                 <div class="polaroid">
                     <img src="Erin.jpg" alt="Our Memory">
@@ -445,7 +504,7 @@
             <br>
             <p>The thing that haunts me is the way you're gonna move away for your studies, but I can't help but to feel sorrow about it. The thought of we will never meet again.</p>
             <br>
-            <p>However, I still wish you all the best. Please be happy there. Hopefully I can get to see you in the future.</p>
+            <p>I still wish you all the best. Please be happy there. Hopefully I can get to see you in the future.</p>
             <br>
             <p>Lastly, I'm sorry if I ever made you feel annoyed because of me. See you when I see you. I love you.</p>
         </div>
@@ -478,14 +537,12 @@
         const totalHeartsNeeded = 19; 
         let gameInterval;
 
-
         startBtn.addEventListener('click', () => {
             music.play().catch(e => console.log("Audio play blocked."));
             welcomeScreen.classList.add('hidden');
             gameScreen.classList.remove('hidden');
             startGame();
         });
-
 
         function startGame() {
             createHeart(); 
@@ -503,9 +560,9 @@
             const heart = document.createElement('div');
             heart.classList.add('floating-heart');
             heart.innerHTML = '&#9829';
-            heart.style.left = Math.random() * 90 + 'vw';
+            heart.style.left = Math.random() * 85 + 'vw'; 
             
-            const duration = 6 + Math.random() * 4; 
+            const duration = 5 + Math.random() * 3; 
             heart.style.animationDuration = duration + 's';
 
             heart.addEventListener('click', () => {
