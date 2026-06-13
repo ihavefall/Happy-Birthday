@@ -559,7 +559,8 @@
         function createHeart() {
             const heart = document.createElement('div');
             heart.classList.add('floating-heart');
-            heart.innerHTML = '&#9829';
+            // Adding &#xFE0E; blocks mobile OS from forcing it into a red emoji image
+            heart.innerHTML = '&#9829;&#xFE0E;';
             heart.style.left = Math.random() * 85 + 'vw'; 
             
             const duration = 5 + Math.random() * 3; 
